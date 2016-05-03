@@ -1,0 +1,57 @@
+{
+  "id": "com.jilles.plugwisesource",
+  "version": "0.0.2",
+  "compatibility": "0.x || 1.x",
+  "category": [ "appliances", "sockets" ],
+  "name": {
+    "en": "plugwisesource",
+    "nl": "plugwisesource"
+  },
+  "description": {
+    "en": "imports plugwise data from source",
+    "nl": "importeerd pluwise data van source"
+  },
+  "author": {
+    "name": "Jilles Miedema"
+  },
+  "images": {
+    "large": "./assets/images/large.jpg",
+    "small": "./assets/images/small.jpg"
+  },
+  "permissions": [
+    "homey:wireless:433"
+  ],
+
+  "drivers": [
+    {
+      "id": "circle",
+      "name": {
+        "en": "Plugwise source",
+        "nl": "Plugwise source"
+      },
+      "class": "socket",
+    "capabilities": [ "onoff", "measure_power", "meter_power" ],
+       "images": {
+        "large": "drivers/circle/assets/images/large.jpg",
+        "small": "drivers/circle/assets/images/small.jpg"
+      },
+      "pair": [
+        {
+          "id": "start"
+        },
+        {
+          "id": "list_circles",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_circles"
+          }
+        },
+        {
+          "id": "add_circles",
+          "template": "add_devices"
+        }
+      ]
+    }
+  ]
+
+}
