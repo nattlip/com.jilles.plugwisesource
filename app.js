@@ -286,7 +286,7 @@ self.reqserver = function (ip, port, path, method, username, password) {
             
             var checkpath = '';  //    /api/actions.html?
 
-            checkpath = path.substring(0, 4);
+            checkpath = path.substring(0, 5);
             
             console.log('/api/  checkpath = ', checkpath)
             
