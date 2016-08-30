@@ -1,7 +1,7 @@
 # com.jilles.plugwisesource
 homey app to integrate plugwise windows desktop source in homey 
 
-works with plugwise source with only circles and an smile added.
+works with plugwise source .
 
 30-08-2016 version 1.2 first app store release
 changes :
