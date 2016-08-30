@@ -125,7 +125,8 @@ var self = module.exports= {
             
             // must be set after req
             //self.plugwiseservertested = true;
-            console.log('driver 103  before testserver if (self.plugwiseserverset)'      );
+            console.log('driver 103  before testserver if (self.plugwiseserverset)');
+            self.polleri += 1
             self.reqserver(self.serverip, self.serverport, self.serverpath, self.servermethod, self.serverusername, self.serverpassword);
                        
         } ;
@@ -168,6 +169,7 @@ var self = module.exports= {
             // gives circular requests
             if (!(self.serverip == null) && !(self.serverip == null) && !(self.serverusername == null) && !(self.serverip == null)) {
                 self.reqserver(self.serverip, self.serverport, self.serverpath, self.servermethod, self.serverusername, self.serverpassword);
+                self.polleri += 1
             };
 
       //  })
@@ -195,6 +197,7 @@ var self = module.exports= {
             console.log('181 settings on set with serverip ', self.serverip);
             
             clearInterval(self.toset);
+            self.polleri += 1
             self.reqserver(self.serverip, self.serverport, self.serverpath, self.servermethod, self.serverusername, self.serverpassword);
             self.pollplugwise();
             console.log('181 settings saved on index ');
@@ -292,7 +295,7 @@ self.reqserver = function (ip, port, path, method, username, password) {
             
             if (!(checkpath == '/api/')) {
                 console.log('!(checkpath == /api/)', !(checkpath == '/api/'))
-                driver.processDeviceData(str);
+                driver.processDeviceData(str,self.polleri);
             };
            
            

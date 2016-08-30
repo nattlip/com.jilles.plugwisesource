@@ -9,11 +9,12 @@ var sourcedata = {};  // xml string from plugwise
 var sourceobject = {}; // translated xml to object
 var source = {};
 var devices = [];   // all circles in plugwise translated to homey device  in homey
+var PairedDevicesOld = [] ; // to hold the old state parameters to compere them to the new to see if values are changed for realtime
 var pairedDevices = []; //imported devices in homey 
 var device = {};    // circle translated to homey device in homey
 var appliances = [];  // appliances = circles in plugwise
 var cloned_devices_data = [];  // an realtine actual devices_data updated after deleting and adding a device, the init dd is not updated.
-
+var stateModulus = 2;// poller to devide number of realtime updates
 
 
 
@@ -135,7 +136,7 @@ var self = {
             
             get: function (device_data, callback) {
                 
-                console.log('capabilitis get onoff entered')
+                console.log('capabilitis get onoff entered  device_data:', device_data)
                 // get the bulb with a locally defined function
                 device = getPairedDevice(device_data.id);
                 console.log('capabilitis get onoff device data ', device.data.id);
@@ -239,10 +240,10 @@ var self = {
 
 module.exports = self;
 
-self.processDeviceData = function (data) {
+self.processDeviceData = function (data,poller) {
     
     
-    console.log('driver 469  processdevcedata entered');
+    console.log('driver 469  processdevcedata entered ');
     
     sourcedata = data;
     
@@ -271,11 +272,14 @@ self.processDeviceData = function (data) {
         sourceobject = result;
         appliances = sourceobject.items.appliance;
         devices = TranslateAppliancesToAppDevices(sourceobject.items.appliance);
+
+        PairedDevicesOld = pairedDevices.slice();
+
         pairedDevices = getPairedDevicesFromDevices(cloned_devices_data, devices);
         
         for (var i = 0; i < cloned_devices_data.length; i++) {
             
-            console.log('app 324 25  virtual setavailablity' , cloned_devices_data[i])
+          //  console.log('driver 278   virtual setavailablity' , cloned_devices_data[i])
                       //  module.exports.setAvailable(devices_data[i])                      
                       //  module.exports.getSettings(devices_data[i], function (err, settings) {
    // console.log(settings.toString)
@@ -284,11 +288,39 @@ self.processDeviceData = function (data) {
           //  var plugewiseid = getCircleId2(device_data.id);
           //  console.log('driver 29 init', plugwiseid)
        
-        }
+        };
+        console.log(' poller poller % stateModulus (poller % stateModulus) == 0)', poller + '  ' + poller % stateModulus + '  ' + (poller % stateModulus == 0));
+        //if (((poller % stateModulus) == 0) && poller > 1 )
+        //{
+        //    for (var i = 0; i < pairedDevices.length; i++)
+        //    {
+
+        //        var thisdevice = {};
+        //        console.log('driver 292   realtime  device capabilities for insights paireddevices[i]":', pairedDevices[i].data);
+        //        console.log('driver 292   realtime  device capabilities for insights paireddevicesOld[i]":', PairedDevicesOld[i].data);
+        //        thisdevice = pairedDevices[i];
+
+        //        if (thisdevice.onoff !== PairedDevicesOld[i].onoff)
+        //        {
+        //            module.exports.realtime(thisdevice.data, 'onoff', thisdevice.onoff);
+        //        }
+        //        if (thisdevice.measure_power !== PairedDevicesOld[i].measure_power)
+        //        {
+        //            module.exports.realtime(thisdevice.data, 'measure_power', thisdevice.measure_power);
+        //        }
+        //        if (thisdevice.meter_power !== PairedDevicesOld[i].meter_power)
+        //        {
+        //            module.exports.realtime(thisdevice.data, 'meter_power', thisdevice.meter_power);
+        //        }
+        //    };
+        //};
 
 
 
-    }); // parse
+
+
+
+    }); // parser
 
 }// processdevicedata
 
@@ -302,22 +334,28 @@ function TranslateAppliancesToAppDevices(dat) {
     
     for (var i = 0; i < len; i++) {
         var homeydevice = {};
-        homeydevice = {
-            data : { id : dat[i].macaddr },
-            name: dat[i].name,
-            capabilities: ["onoff", "measure_power", "meter_power"],
-            plugwiseid: dat[i].id,  // id in plugwise needed  to send command
-            measure_power: Number(((dat[i].powerusage) / 100).toFixed(2)),
-            meter_power: Number(((dat[i].totalusage) / 100).toFixed(0)),
-            type       : dat[i].type,
-            room       : dat[i].room,
-            onoff      : translatePowerstateFromPlugwiseToHomey(dat[i].realstate)
-                     
+      //  util.log(util.inspect((dat[i].moduletype == "Circle" || dat[i].moduletype == "Circle+"), false, null))
+      //  util.log(util.inspect((dat[i]), false, null))
+        // filter out all other devices as circles and circles+
+        if (dat[i].moduletype == "Circle" || dat[i].moduletype == "Circle+" ) {
+            homeydevice = {
+                data: { id: dat[i].macaddr },
+                name: dat[i].name,
+                capabilities: ["onoff", "measure_power", "meter_power"],
+                plugwiseid: dat[i].id,  // id in plugwise needed  to send command
+                measure_power: Number(((dat[i].powerusage) / 100).toFixed(2)),
+                meter_power: Number(((dat[i].totalusage) / 100).toFixed(0)),
+                type: dat[i].type,
+                room: dat[i].room,
+                onoff: translatePowerstateFromPlugwiseToHomey(dat[i].realstate)
+
+            };
+
+            //  console.log('device',   homeydevice);
+
+            //   console.log(device);
+            homeydevices.push(homeydevice);
         };
-        //  console.log('device',   homeydevice);
-        
-        //   console.log(device);
-        homeydevices.push(homeydevice);
     };
     
     
@@ -339,12 +377,12 @@ function  getPairedDevicesFromDevices(devdat, devs) {
                 pdevs.push(devs[j]);
                 //  console.log('driver 566 paired device', devs[j]);
                 //update homey
-                module.exports.realtime(devdat, 'onoff', devs[j].onoff);
-                module.exports.realtime(devdat, 'measure_power', devs[j].measure_power);
-                module.exports.realtime(devdat, 'meter_power', devs[j].meter_power);
-          //      console.log('driver 546 onoff device data  ' + util.inspect(devdat[i], false, null) , devs[j].onoff)
-           //     console.log('driver 546 powerusage device data  ' + util.inspect(devdat[i], false, null) , devs[j].measure_power)
-             //   console.log('driver 546 meter power device data  ' + util.inspect(devdat[i], false, null) , devs[j].meter_power)
+                module.exports.realtime(devs[j].data, 'onoff', devs[j].onoff);
+                module.exports.realtime(devs[j].data, 'measure_power', devs[j].measure_power);
+                module.exports.realtime(devs[j].data, 'meter_power', devs[j].meter_power);
+                console.log('driver 377 onoff device data  ' + util.inspect(devdat[i], false, null) , devs[j].onoff)
+                console.log('driver 378 powerusage device data  ' + util.inspect(devdat[i], false, null) , devs[j].measure_power)
+                console.log('driver 379 meter power device data  ' + util.inspect(devdat[i], false, null) , devs[j].meter_power)
             }
         }
             
@@ -493,7 +531,7 @@ function sendCommandToPlugwise(id, onoff) {
 //// devs = homeydevices object 
 
 
-
+//#region main
 
 function getPairedDevice(id) {
     
@@ -526,6 +564,7 @@ function getPairedDevice(id) {
     
 }
 
+//#endregion
 
 function  addDeviceToPairedDevices(macid) {
     
@@ -537,7 +576,8 @@ function  addDeviceToPairedDevices(macid) {
     
     
     var homeycircle = {};
-    homeycircle = {
+    
+    homeycircle = { // = paireddevice if paired
         data : { id : tobeadddedtopaireddevices.macaddr },
         name: tobeadddedtopaireddevices.name,
         capabilities: ["onoff", "measure_power", "meter_power"],
@@ -557,16 +597,17 @@ function  addDeviceToPairedDevices(macid) {
     
     pairedDevices.push(homeycircle);
 
+   // TODO:    filter out realtime no changes made 
 
+    // TODO:  realtime check one in four or 40 etc
 
+   // TODO: filter out the plugwise smiley in the xml 
 
-
-
-
-
+    // TODO: regions  http://stackoverflow.com/questions/1921628/how-to-implement-regions-code-collapse-in-javascript
+    //  http://vswebessentials.com/features/javascript
+    //   web essential Web Extension Pack  https://visualstudiogallery.msdn.microsoft.com/f3b504c6-0095-42f1-a989-51d5fc2a8459
 }
 
 
-/*
-	Search for bridges on the network, and get their state
-*/
+
+
