@@ -2,13 +2,10 @@
   "id": "com.jilles.plugwisesource",
   "version": "0.1.2",
   "compatibility": "0.x || 1.x",
-
   "category": [ "appliances" ],
-
-
   "name": {
-    "en": "plugwisesource",
-    "nl": "plugwisesource"
+    "en": "Plugwise Source",
+    "nl": "Plugwise Source"
   },
   "description": {
     "en": "imports plugwise data from source",
