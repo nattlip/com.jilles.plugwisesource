@@ -1,6 +1,6 @@
 {
   "id": "com.jilles.plugwisesource",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "compatibility": "0.x || 1.x",
   "category": [ "appliances" ],
   "name": {
