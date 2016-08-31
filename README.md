@@ -1,4 +1,3 @@
-
 #com.jilles.plugwisesource
 
 Homey app to integrate Plugwise Windows desktop Source in Homey.
