@@ -1,6 +1,6 @@
 {
   "id": "com.jilles.plugwisesource",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "compatibility": "0.x || 1.x",
   "category": [ "appliances" ],
   "name": {
@@ -8,8 +8,8 @@
     "nl": "Plugwise Source"
   },
   "description": {
-    "en": "imports plugwise data from source",
-    "nl": "importeerd pluwise data van source"
+     "en": "Imports Plugwise data from Source and controls Circels",
+    "nl": "Importeerd Plugwise data van Source en bediend Circles"
   },
   "author": {
     "name": "Jilles Miedema"
