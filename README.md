@@ -7,7 +7,7 @@ Works with data retreived from Plugwise Source Server . Controls Circles with Ho
 30-08-2016 version 1.2 first app store release changes : only Circles and Circles+ can be added as Homey socket devices.
  
 There is a special Homey app for the Plugwise Smile P1 in the Athom App Store so it isnt included anymore in this app.-://forum.athom.com/discussion/1906
-[plugwise-smile-p1-app]: https://apps.athom.com/app/com.plugwise.smile
+[Smile]: https://apps.athom.com/app/com.plugwise.smile
 
 
 
