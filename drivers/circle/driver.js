@@ -27,7 +27,7 @@ var self = {
         if (Homey.appcloned_devices_data) { console.log('driver 22 devices_data', util.inspect(Homey.appcloned_devices_data, false, null)) }
         else { console.log('no device data') }
         
-        console.log('driver 32  plugiseserverset value :', Homey.app.plugwiseserverset)
+       // console.log('driver 32  plugiseserverset value :', Homey.app.plugwiseserverset) this didnt work in 0.10.0
         
         callback();
         

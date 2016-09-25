@@ -1,7 +1,6 @@
 {
   "id": "com.jilles.plugwisesource",
-
-  "version": "0.1.6",
+  "version": "0.1.7",
   "compatibility": "0.x || 1.x",
   "category": [ "appliances" ],
   "name": {
@@ -9,7 +8,7 @@
     "nl": "Plugwise Source"
   },
   "description": {
-     "en": "Imports Plugwise data from Source and controls Circels",
+    "en": "Imports Plugwise data from Source and controls Circels",
     "nl": "Importeerd Plugwise data van Source en bediend Circles"
   },
   "author": {
