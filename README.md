@@ -14,7 +14,9 @@ There is a special Homey app for the Plugwise [Smile] P1 in the Athom App Store 
 
 Bug fixed  : Testing Plugwise Source server  doesnt give crash app anymore.
 
+Changelog
 
+15-10-2016  v 0.1.18  firmmware update homey to 0.10.5 did give problems with saving settings of server, is solved by bvdbos.
 
 25-09-2016 version 0.1.7 
 deleteted line 30 in driver which gave app crash in Homey firmware 0.10.0
