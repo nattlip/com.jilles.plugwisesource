@@ -14,100 +14,107 @@
     <fieldset>
         <legend>Plugewise Server variables</legend>
 
-        <div class="field row">
-            <label for="ip">ipaddress  server</label>
-            <input id="ip" type="text" value="" />     
+        <div class='field row'>
+            <label for='ip'>ipaddress  server</label>
+            <input id='ip' type='text' value='' />     
         </div>
 
-        <div class="field row">
-            <label for="port">port  server</label>
-            <input id="port"type="text" value="" />           
+        <div class='field row'>
+            <label for='port'>port  server</label>
+            <input id='port' type='text' value='' />           
         </div>
 
-        <div class="field row">
-            <label for="username">username</label>
-            <input id="username" type="text" value="" />        
+        <div class='field row'>
+            <label for='username'>username</label>
+            <input id='username' type='text' value='' />        
         </div>
 
-        <div class="field row">
-            <label for="password">password</label>
-            <input id="password" type="text" value="" />
+        <div class='field row'>
+            <label for='password'>password</label>
+            <input id='password' type='text' value='' />
         </div>
 
-        <div class="field row">
-            <label for="test">servertested</label>
-            <div id="test" style="display: inline-block"></div>
+        <div class='field row'>
+            <label for='test'>servertested</label>
+            <div id='test' style='display: inline-block'></div>
         </div>
 
-        <div class="field row">
-            <label for="connected">serverconnected</label>
-            <div id="connected" style="display: inline-block"></div>
+        <div class='field row'>
+            <label for='connected'>serverconnected</label>
+            <div id='connected' style='display: inline-block'></div>
         </div>
 
 
-        <!--<div class="field row">
-            <label for="test2">port plugwise server</label>
-            <textarea id="test2">textarea sample</textarea>
+        <!--<div class='field row'>
+            <label for='test2'>port plugwise server</label>
+            <textarea id='test2'>textarea sample</textarea>
         </div>-->
 
 
     </fieldset>
 
-    <button class="right" onclick="save()">Save changes</button>
-    <button class="right" onclick="retrieve()">retrieve settings</button>
-    <button class="right" onclick="testserver()">test plugwise server</button>
+    <button class='right' onclick='save()'>Save changes</button>
+    <button class='right' onclick='retrieve()'>retrieve settings</button>
+    <button class='right' onclick='testserver()'>test plugwise server</button>
 
-    <script type="text/javascript">
+    <script type='text/javascript'>
 
         var testingglobal;     // global in javascript
         var connectedglobal;
 
         function onHomeyReady() {
 
-            Homey.ready()
+          
+
+
 
 
             Homey.get('serverip', function (err, serverip) {
-                if (err) return console.error('Could not get serverip', err);
-                document.getElementById("ip").value = serverip;
+  //              if (err) return console.error('Could not get serverip', err);
+                document.getElementById('ip').value = serverip;
             });
             Homey.get('serverport', function (err, serverport) {
-                if (err) return console.error('Could not get serverport', err);
-                document.getElementById("port").value = serverport;
+  //              if (err) return console.error('Could not get serverport', err);
+                document.getElementById('port').value = serverport;
             });
 
             Homey.get('serverpassword', function (err, serverpassword) {
-                if (err) return console.error('Could not get password', err);
-                document.getElementById("password").value = serverpassword;
+     //           if (err) return console.error('Could not get password', err);
+                document.getElementById('password').value = serverpassword;
             });
 
 
             Homey.get('serverusername', function (err, serverusername) {
-                if (err) return console.error('Could not get username', err);
-                document.getElementById("username").value = serverusername;
+    //            if (err) return console.error('Could not get username', err);
+                document.getElementById('username').value = serverusername;
             });
 
 
-            Homey.get('testing', function (err, testing) {
-                //if (testing) { testing = false } else if (!testing) { testing = true };
-                testingglobal = testing;
 
-                if (err) return console.error('Could not get testing', err);
-                document.getElementById("test").innerHTML = testing;
-            });
+
+
+            //Homey.get('testing', function (err, testing) {
+            //    //if (testing) { testing = false } else if (!testing) { testing = true };
+            //    testingglobal = testing;
+
+            //    if (err) return console.error('Could not get testing', err);
+            //    document.getElementById('test').innerHTML = testing;
+            //});
 
 
             // gets event data from app.js firesd in callback request
-            Homey.on('my_event', function (data) {
+        //    Homey.on('my_event', function (data) {
 
                
 
 
-                if (data.plugwiseserverconnected)
-                    document.getElementById("connected").innerHTML = data.plugwiseserverconnected;
-                else if (data.testing)
-                document.getElementById("test").innerHTML = data.testing;
-            });
+            //    if (data.plugwiseserverconnected)
+            //        document.getElementById('connected').innerHTML = data.plugwiseserverconnected;
+            //    else if (data.testing)
+            //    document.getElementById('test').innerHTML = data.testing;
+            //});
+
+            Homey.ready()
 
         }
 
@@ -116,24 +123,14 @@
 
         function save() {
 
-       //Homey.get("serverip", function (err,serverip) {
-       //         console.log('serverip indexhtml ', serverip);
-       //         document.getElementById("ip").value = serverip;
-       //         // got username!
-
-       //     });
+     
 
 
 
-
-
-
-
-
-            Homey.set("serverip", document.getElementById("ip").value);
-            Homey.set("serverport", document.getElementById("port").value);
-            Homey.set("serverusername", document.getElementById("username").value);
-            Homey.set("serverpassword", document.getElementById("password").value);
+            Homey.set('serverip', document.getElementById('ip').value);
+            Homey.set('serverport', document.getElementById('port').value);
+            Homey.set('serverusername', document.getElementById('username').value);
+            Homey.set('serverpassword', document.getElementById('password').value);
 
 
 
@@ -143,7 +140,7 @@
         {
             Homey.get('serverip', function (err,serverip) {
                 if (err) return console.error('Could not get serverip', err);
-                document.getElementById("ip").value = serverip;
+                document.getElementById('ip').value = serverip;
             });
 
         }
@@ -160,14 +157,14 @@
 
         //function initpagesettings(settingstring,setting){
         //    Homey.get(settingstring, function (err,setting) {
-        //        if (err) { return "no data set" }
+        //        if (err) { return 'no data set' }
 
         //    else{ return   setting}
 
         //       });
         //};
 
-        //initpagesettings("serverip",serverip) initpagesettings("serverip", serverip);
+        //initpagesettings('serverip',serverip) initpagesettings('serverip', serverip);
 
 
 

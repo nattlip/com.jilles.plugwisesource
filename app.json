@@ -1,6 +1,6 @@
 {
   "id": "com.jilles.plugwisesource",
-  "version": "0.1.7",
+  "version": "0.1.18",
   "compatibility": "0.x || 1.x",
   "category": [ "appliances" ],
   "name": {
@@ -14,6 +14,20 @@
   "author": {
     "name": "Jilles Miedema"
   },
+  "contributors": {
+    "developers": [
+
+      {
+        "name": "Bas van den Bosch",
+        "email": "info@sasteren.nl",
+        "website":"https://github.com/bvdbos/"
+      }
+          ]
+  },
+
+
+
+
   "images": {
     "large": "./assets/images/large.jpg",
     "small": "./assets/images/small.jpg"
@@ -30,8 +44,8 @@
         "nl": "Plugwise source"
       },
       "class": "socket",
-    "capabilities": [ "onoff", "measure_power", "meter_power" ],
-       "images": {
+      "capabilities": [ "onoff", "measure_power", "meter_power" ],
+      "images": {
         "large": "drivers/circle/assets/images/large.jpg",
         "small": "drivers/circle/assets/images/small.jpg"
       },
