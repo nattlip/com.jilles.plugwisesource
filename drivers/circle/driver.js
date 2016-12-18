@@ -139,14 +139,26 @@ var self = {
                 console.log('capabilitis get onoff entered  device_data:', device_data)
                 // get the bulb with a locally defined function
                 device = getPairedDevice(device_data.id);
-                console.log('capabilitis get onoff device data ', device.data.id);
-                console.log('driver 279 capabilitis get onoff ', device.onoff);
-                if (device instanceof Error) return callback(device);
-                
-                
-                // send the dim value to Homey
-                if (typeof callback == 'function') {
-                    callback(null, device.onoff);
+
+                if (device !== undefined)
+                {
+                   util.log('device cap get onoff    ', util.inspect(   device     , false, null));
+                    
+
+                    if (device instanceof Error)
+                    {
+                        console.log('capabilitis get onoff device data error device ', device.type);
+
+                        return callback(device);
+                    }
+
+                    // send the dim value to Homey
+                    if (typeof callback == 'function')
+                    {
+                        callback(null, device.onoff);
+                      //  console.log('capabilitis get onoff device data ', device.data.id);
+                      // console.log('driver 279 capabilitis get onoff ', device.onoff);
+                    }
                 }
             },
             
@@ -243,7 +255,8 @@ module.exports = self;
 self.processDeviceData = function (data,poller) {
     
     
-    console.log('driver 469  processdevcedata entered ');
+    console.log('driver 258 processdevcedata entered ');
+    console.log("driver 259 received xml", data);
     
     sourcedata = data;
     
