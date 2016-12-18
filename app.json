@@ -1,7 +1,7 @@
 {
   "id": "com.jilles.plugwisesource",
-  "version": "0.1.28",
-  "compatibility": "0.x || 1.x",
+  "version": "0.1.38",
+  "compatibility": ">=1.0.3",
   "category": [ "appliances" ],
   "name": {
     "en": "Plugwise Source",
@@ -20,9 +20,9 @@
       {
         "name": "Bas van den Bosch",
         "email": "info@sasteren.nl",
-        "website":"https://github.com/bvdbos/"
+        "website": "https://github.com/bvdbos/"
       }
-          ]
+    ]
   },
 
 
