@@ -15,10 +15,10 @@ var self = module.exports= {
     plugwiseservertested : false , //Homey.manager('settings').get('testing'),
     polleri : 0,
     pollInterval : 15000,
-    serverip : Homey.manager('settings').get('serverip'),
-    serverport : Homey.manager('settings').get('serverport'),
-    serverusername : Homey.manager('settings').get('serverusername'),
-    serverpassword : Homey.manager('settings').get('serverpassword'),
+    serverip : '',
+    serverport : '',
+    serverusername : '',
+    serverpassword : '',
     serverpath : '',
     servermethod : '',
     serveraction : false ,  // = retrieve xml  get or post retrieve xml or send command false if no action send
@@ -68,6 +68,31 @@ var self = module.exports= {
 
 
     init: function () {
+
+
+        self.plugwiseserverset = false;
+        self.plugwiseserverconnected = false;
+        self.plugwiseservertesting = true; // testing at start and if servervariables are set, have to test first
+        self.plugwiseservertested = false; //Homey.manager('settings').get('testing'),
+        self.polleri = 0;
+        self.pollInterval = 15000;
+        self.serverip = Homey.manager('settings').get('serverip');
+        self.serverport = Homey.manager('settings').get('serverport');
+        self.serverusername = Homey.manager('settings').get('serverusername');
+        self.serverpassword = Homey.manager('settings').get('serverpassword');
+
+
+
+
+
+
+
+
+
+
+
+
+
    
         self.serverpath = '/statistics.xml';
         self.servermethod = 'GET';
@@ -289,13 +314,15 @@ self.reqserver = function (ip, port, path, method, username, password) {
             
             var checkpath = '';  //    /api/actions.html?
 
-            checkpath = path.substring(0, 5);
+            checkpath = path.substring(0, 4);
             
             console.log('/api/  checkpath = ', checkpath)
             
             if (!(checkpath == '/api/')) {
                 console.log('!(checkpath == /api/)', !(checkpath == '/api/'))
-                driver.processDeviceData(str,self.polleri);
+             
+                driver.processDeviceData(str, self.polleri);
+             
             };
            
            
