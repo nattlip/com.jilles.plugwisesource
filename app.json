@@ -1,7 +1,7 @@
 {
   "id": "com.jilles.plugwisesource",
-  "version": "0.1.38",
-  "compatibility": ">=1.0.3",
+  "version": "0.1.39",
+  "compatibility": ">=1.0.39",
   "category": [ "appliances" ],
   "name": {
     "en": "Plugwise Source",

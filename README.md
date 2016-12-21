@@ -15,6 +15,8 @@ There is a special Homey app for the Plugwise [Smile] P1 in the Athom App Store 
 Bug fixed  : Testing Plugwise Source server  doesnt give crash app anymore.
 
 Changelog
+
+21-11-2016  v 0.1.39    added node module node-homey-log to map node_modules
  
 18-12-2016  v 0.1.38    version homey FW lifted to >= 1.0.3 removed bug when switch a socket app crashed. added Sentry log require, not implemented yet
 
